@@ -1,0 +1,33 @@
+package main
+
+import (
+	"time"
+
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+
+	"log"
+	"tutorial/golang/test_orm/models"
+)
+
+func main() {
+	db, err := gorm.Open("postgres", "host=localhost user=postgres dbname=testdb sslmode=disable password=Md10112008")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	db.AutoMigrate(&models.User{}, &models.Email{}, &models.Address{}, &models.Language{}, &models.CreditCard{})
+
+	user := models.User{Name: "Jinzhu", Age: 18, Birthday: time.Now()}
+
+	//fmt.Printf("%v\n", db.NewRecord(user))
+
+	//if db.NewRecord(user) {
+	//	db.Create(user)
+	//}
+
+	db.Create(user)
+
+	db.Commit()
+}

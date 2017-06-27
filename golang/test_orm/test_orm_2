@@ -1,0 +1,20 @@
+package main
+
+import (
+	"github.com/jinzhu/gorm"
+	_ "github.com/jinzhu/gorm/dialects/postgres"
+
+	"log"
+	"tutorial/golang/test_orm/models"
+)
+
+func main() {
+	db, err := gorm.Open("postgres", "host=localhost user=postgres dbname=testdb sslmode=disable password=Md10112008")
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer db.Close()
+
+	db.DropTableIfExists(&models.User{}, &models.Email{}, &models.Address{}, &models.Language{}, &models.CreditCard{})
+
+}

@@ -1,0 +1,43 @@
+package main
+
+import "fmt"
+
+type counter int
+
+func (c *counter) increment() {
+	*c++
+}
+
+func (c *counter) Error() string {
+	return "counter error!"
+}
+
+func add(x, y int) int {
+	return x + y
+}
+
+type binFunc func(int, int) int
+
+func main() {
+	fn0 := func(id int) {
+		var c counter
+		for i := 0; i < 10; i++ {
+			fmt.Printf("thread %v: %v\n", id, c)
+			c.increment()
+		}
+	}
+	for i := 0; i < 3; i++ {
+		go fn0(i)
+	}
+	//fn()
+
+	var fn1 binFunc = func(x, y int) int { return x + y }
+	fmt.Printf("binFunc: %v\n", fn1(1, 2))
+
+	var fn2 binFunc = add
+	fmt.Printf("binFunc: %v\n", fn2(1, 5))
+
+	var input string
+	fmt.Scanln(&input)
+	fmt.Println("ending main... ")
+}
