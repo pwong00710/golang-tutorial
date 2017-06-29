@@ -2,6 +2,7 @@ package main
 
 import (
 	"math/rand"
+	"os"
 	"time"
 
 	"github.com/jinzhu/gorm"
@@ -18,6 +19,10 @@ func main() {
 	showSQL := flag.Bool("showSQL", false, "a bool")
 
 	flag.Parse()
+
+	for _, e := range os.Environ() {
+		fmt.Println(e)
+	}
 
 	//fmt.Printf("showSQL: %v\n", *showSQL)
 
