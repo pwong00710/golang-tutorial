@@ -3,6 +3,7 @@ package main
 import (
 	"log"
 	"math/rand"
+	"os"
 	"time"
 
 	"fmt"
@@ -10,6 +11,7 @@ import (
 	"flag"
 
 	as "github.com/aerospike/aerospike-client-go"
+	asl "github.com/aerospike/aerospike-client-go/logger"
 	"github.com/pborman/uuid"
 )
 
@@ -27,6 +29,15 @@ func main() {
 	cleanUp := flag.Bool("cleanUp", false, "a bool")
 	dropIndex := flag.Bool("dropIndex", true, "a bool")
 	flag.Parse()
+
+	//
+	//var buf bytes.Buffer
+	logger := log.New(os.Stderr, "logger: ", log.Ldate|log.Ltime|log.Lshortfile)
+	//logger.SetOutput(os.Stdout)
+	//logger.SetOutput(os.Stderr)
+	asl.Logger.SetLogger(logger)
+	asl.Logger.SetLevel(asl.DEBUG)
+	//defer buf.WriteTo(os.Stdout)
 
 	// Truncate table
 	// asinfo -v "truncate:namespace=test;set=aerospike;lut=time"
