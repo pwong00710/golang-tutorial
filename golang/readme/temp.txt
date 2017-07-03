@@ -32,7 +32,23 @@ oc rsh you-forex-cache3-dnbkd
 oc rsh $(oc get pods -n youapp-staging -l deploymentconfig=you-forex-cache -o name | cut -d "/" -f 2)
 oc process -f ~/src/infra/openshift-templates/application/you-api.tpl.yaml | oc create -f -
 oc debug you-forex-cache-1-790m8
-oc rsh 
+oc rsh
+
+rm /Users/peterwong/.minishift/machines/minishift/minishift.pid
+oc process -f you-api.tpl.yaml | oc delete -f -
+
+Add new app:
+1. open console
+2. select a project (e.g., youapp-staging)
+3. select "Add to project" on the top
+4. select "Uncategorized" at the bottom right corner
+5. select applcation (e.g., you-app)
+6. change the following branch from "master" to "micro-rewrite"
+    YOU_EXTERNAL_API_REF
+    YOU_GPS_REF
+    YOU_LEDGER_REF
+    YOU_API_GATEWAY_REF
+7. click create to start
 
 Repo Command
 ------------
@@ -45,6 +61,7 @@ Git Command
 -----------
 git branch
 godep restore
+git push https://pwong00710@github.com/pwong00710/golang-tutorial.git
 
 
 Openshift
@@ -70,6 +87,9 @@ etcdctl --endpoints=http://etcd:2379 get /yougroupteam/you_api.json
 Others
 ------
 you-api loaddata fixtures/oauth_scopes.yml fixtures/oauth_roles.yml fixtures/currencies.yml fixtures/user_questions.yml
+find . -name '*.js' -exec grep -i 'string to search for' {} \; -print
+find . -not -path "./vendor/*" -name '*.go' -exec grep -i 'proto' {} \; -print
+find . -path "./vendor/*" -prune -o -type f -name "*.go" -exec grep -i 'proto' {} \; -print
 
 Useful Links
 ------------
@@ -303,3 +323,38 @@ Others
 	log.Printf("client.go:GetDetailedRates:%v\n", quotes)
 
 	return &quotes, nil
+
+######################################################################## 100.0%
+==> Pouring consul-0.8.5.sierra.bottle.tar.gz
+==> Using the sandbox
+==> Caveats
+If consul was built with --with-web-ui, you can activate the UI by running
+consul with `-ui-dir /usr/local/opt/consul/share/consul/web-ui`.
+
+zsh completions have been installed to:
+  /usr/local/share/zsh/site-functions
+
+To have launchd start consul now and restart at login:
+  brew services start consul
+Or, if you don't want/need a background service you can just run:
+  consul agent -dev -advertise 127.0.0.1
+==> Summary
+🍺  /usr/local/Cellar/consul/0.8.5: 5 files, 35.7MB
+
+./proto/pb/currency-exchange/currencycloud.proto
+./proto/pb/email/email.proto
+./proto/pb/error/error.proto
+./proto/pb/gps/bulkwalletcreation.proto
+./proto/pb/gps/client_fx.proto
+./proto/pb/gps/createcard.proto
+./proto/pb/gps/gps.proto
+./proto/pb/gps/load.proto
+./proto/pb/gps/statuschange.proto
+./proto/pb/ledger/ledger.proto
+./proto/pb/money/money.gen.proto
+./proto/pb/money/money.proto
+./proto/pb/notification/notifications.proto
+./proto/pb/orders/orders.proto
+./proto/pb/orders/topup.proto
+
+protoc -I$GOPATH/src --go_out=plugins=micro:$GOPATH/src $GOPATH/src/github.com/micro/examples/service/proto/greeter.proto
