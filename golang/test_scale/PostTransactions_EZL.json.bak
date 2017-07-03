@@ -1,0 +1,11 @@
+{
+    "msgUid": "e0d63ba997354229a8e458e6b04d1ced",
+    "transactions": [{
+        "clientID": "EZL",
+        "clientRequestID": "EZL-TXN-20170425-001",
+        "clientRequestTime": 1493087532000,
+        "rateQuoteID": "EZL19O7MIXGLDNH4",
+        "bookingAccountAlias": "SCALE-EZLSG",
+        "buyAmount": 123.45
+    }]
+}

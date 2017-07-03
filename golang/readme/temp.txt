@@ -1,0 +1,305 @@
+OC Command
+----------------
+oc get secrets
+minishift console --machine-readable
+oc whoami
+oc project
+
+oc get pods
+oc get build
+
+vi you-api.tpl.yaml
+oc start-build you-email
+oc exec -n youapp-staging -ti $(oc get pods -n youapp-staging -l deploymentconfig=you-api -o name | cut -d "/" -f 2) -- /bin/bash
+oc exec -n youapp-staging -ti $(oc get pods -n youapp-staging -l deploymentconfig=postgres -o name | cut -d "/" -f 2) -- psql -U you_api you_api
+oc exec -n youapp-staging -ti $(oc get pods -n youapp-staging -l deploymentconfig=you-forex-cache -o name | cut -d "/" -f 2) -- /bin/bash
+oc logs $(oc get pods -n youapp-staging -l deploymentconfig=you-api -o name | cut -d "/" -f 2) -f
+oc port-forward $(oc get pods -n youapp-staging -l deploymentconfig=etcd -o name | cut -d "/" -f 2) 2379:2379
+oc port-forward $(oc get pods -n youapp-staging -l deploymentconfig=nats-streaming-server -o name | cut -d "/" -f 2) 4222:4222
+oc port-forward $(oc get pods -n youapp-staging -l deploymentconfig=postgres -o name | cut -d "/" -f 2) 5432:5432
+oc port-forward $(oc get pods -n youapp-staging -l deploymentconfig=you-api -o name | cut -d "/" -f 2) 8080:8080
+oc exec -t -i you-api-3-7k2v5 /bin/bash
+
+
+minishift console --machine-readable
+oc exec -n youapp-staging -ti $(oc get pods -n youapp-staging -l deploymentconfig=etcd-config -o name | cut -d "/" -f 2) -- /bin/bash
+oc patch bc you-forex-cache -p '{"spec":{"source":{"git":{"ref":"YOUAPP-813"}}}}'
+oc patch bc etcd-config -p '{"spec":{"source":{"git":{"ref":"YOUAPP-813"}}}}'
+
+oc delete pods etcd-config-1-n5v89
+oc delete dc you-forex-cache
+oc rsh you-forex-cache3-dnbkd
+oc rsh $(oc get pods -n youapp-staging -l deploymentconfig=you-forex-cache -o name | cut -d "/" -f 2)
+oc process -f ~/src/infra/openshift-templates/application/you-api.tpl.yaml | oc create -f -
+oc debug you-forex-cache-1-790m8
+oc rsh 
+
+Repo Command
+------------
+repo sync
+https://github.com/yougroupteam/yougroup-repo
+repo status
+
+
+Git Command
+-----------
+git branch
+godep restore
+
+
+Openshift
+---------
+/Users/peterwong/src/infra/openshift-templates/application/you-api.tpl.yaml
+
+
+Golangd-EAP
+-----------
+/Users/peterwong/src/go/src/github.com/yougroupteam
+
+
+Postgres
+--------
+\echo :AUTOCOMMIT
+insert into oauth_scopes (created_at, updated_at, scope, is_default) values (now(), now(), 'read_write', true);
+
+ETCD
+----
+/Users/peterwong/src/containers/etcd-config/docker-etcd-config-entrypoint.sh
+etcdctl --endpoints=http://etcd:2379 get /yougroupteam/you_api.json
+
+Others
+------
+you-api loaddata fixtures/oauth_scopes.yml fixtures/oauth_roles.yml fixtures/currencies.yml fixtures/user_questions.yml
+
+Useful Links
+------------
+JIRA
+——
+https://yougroup.atlassian.net/secure/WelcomeToJIRA.jspa
+
+Slack
+———
+https://yougroupteam.slack.com/messages/@slackbot/
+
+GitHub
+————
+https://github.com/orgs/yougroupteam/dashboard
+
+Confluence
+——————
+https://yougroup.atlassian.net/wiki/discover/all-updates
+
+Requirement
+———————
+https://docs.google.com/document/d/1h5Hk2vq5LICfELkOowYt1xvR647ijIFIZj863prtq7U/edit?ts=59434147#heading=h.rbwcoubgeet9
+
+
+Others
+------
+-----BEGIN RSA PRIVATE KEY-----\n
+MIIEpAIBAAKCAQEAwUdFbiZT5lU+rKAmOPGzLMeEh00e86HGtcsUQrimfewaYiU8\n
+jipDodnBtfU7SpaFMDlg88XHu71pGjzFLqb/n0oQfZBm7J3L4UZhOTt/j8Srrm7A\n
+0aK+l90IIGQQP8l30FyqP2pTOHC0gH0DtOV5DSAKNpkw8thLincqQeygirZOO7hD\n
+N+MsC6NmooKOKoEWPS4hEd2HqoE8y7QYcwBgVerLaMQGWbDcCIJNO8DNn22fPUS3\n
+U+J8VKoUaV3bIhCgT2aNLB/bKEH70+M9wasWJbCa4s3Bh/GRIhXA7iqE8TATpjbh\n
+JNOnSR1LL1mRw6Qyhkd+2zu9mqUqItS1fMC05QIDAQABAoIBAQCdTT4qqbL68UHz\n
+CNxS2BO1TCSGYbPhITcyWbeBnfqS3YeTfS7NnYQxw6IuTwoUaHC5kNlhTQSDvWI+\n
+4lqw32WH5KWLK+04giyeicMy60OkZLI9YxI3C7cGrfOhOQ8oevWydNhyiDx24PNm\n
+51gO7/wXPI5TZVY7LuI8LUQNJ2J5wP+zmfhqqm+ovhwcHJS5l6UbSy4pkjjuEPe0\n
+qkajjT5+F4X2q0h2wDRfRglAt3uIMo2BIjJ7Aihju6wRC0bltD2PDdu27hTWQECF\n
+fU5MdWMq5v7H5v3rkRDF6aQyLT4Gdh+JeFyuIh5ACWT8gAKQIvDTEA1qHmH/XSY0\n
+mxbYuRN5AoGBAORigLP8L/YcPeq2Y2sr0Q5A3CM2Y4wm4C4TrbsBX+6enncm4Yxv\n
+Q8ZBAmtB9UmqmRYQyaEySz9ys0KDY63dvj56l7LL38yua34twUzX/vK7isHTw39p\n
+Y/mKupDTzmrqWMKzWf9MK5+AQt7I3gz6ArXTy/H9mIdOHnTKyvBHoU+HAoGBANim\n
+EwPyQyrwPgSQuYaMA6fdXweniw6WGTEsB+KQ2nYYrnrzXf4nUeoAAgGjyHFJnA5J\n
+bHgCEGa8S/cmNVio9DVVPOxD2Oe0DTFWPVaMwQmZ4jkru6lE7QGUmWi9J5Vs45fy\n
+LogtnV0opRrTwSpET3oTnMBfwVCD9LKXEdOgWHszAoGAFOivv8qm2XFcedCY6Ybp\n
+bNSjUtX35yzn+U/z59sIXWBIQcBdhe3p1oy9G/S98DCeM1b2HrvsB7MIll5REenr\n
+MO0oVkY0Bxkw3ixyNgbQYIiq+3PXwiJz9LSuv/OkQkWSOsEQzD68/61OcfcR3T5G\n
+YT8yvMTq4fhU8XxfeAAW1KECgYEAr/YrKaBh94ULChA171bXPUcqgQAOjHlS2sJF\n
+YTp/hT3EsS3rIJr1CBabipNpIMJFksEF7W7XvWmgVYtd9rW7K3ogslDk4kQ2FuVR\n
+inNl8hNfT0n68J9/1DHKa+x+Mvou3GGic46A6oIxn1lv4ZF7783wGbtsOqYCX+8d\n
+VoI8e0sCgYB4fGyT3qapaJ0bAIsQd8j7TUDzebIWTNygd4CaVktWiuN9tq5kBH1A\n
+uDx0369vGm4EjP23lvz8E16pGWe+y4qw7q75IPdb9O5ypHJUFSKdCVs6wzff4itE\n
+V6clqDJIbc1qoKwdkHPHojXuhth+iSO7uE1oBRu/Kl2FWWdtuw8WTg==\n
+-----END RSA PRIVATE KEY-----
+
+-----BEGIN RSA PRIVATE KEY-----\nMIIEpAIBAAKCAQEAwUdFbiZT5lU+rKAmOPGzLMeEh00e86HGtcsUQrimfewaYiU8\njipDodnBtfU7SpaFMDlg88XHu71pGjzFLqb/n0oQfZBm7J3L4UZhOTt/j8Srrm7A\n0aK+l90IIGQQP8l30FyqP2pTOHC0gH0DtOV5DSAKNpkw8thLincqQeygirZOO7hD\nN+MsC6NmooKOKoEWPS4hEd2HqoE8y7QYcwBgVerLaMQGWbDcCIJNO8DNn22fPUS3\nU+J8VKoUaV3bIhCgT2aNLB/bKEH70+M9wasWJbCa4s3Bh/GRIhXA7iqE8TATpjbh\nJNOnSR1LL1mRw6Qyhkd+2zu9mqUqItS1fMC05QIDAQABAoIBAQCdTT4qqbL68UHz\nCNxS2BO1TCSGYbPhITcyWbeBnfqS3YeTfS7NnYQxw6IuTwoUaHC5kNlhTQSDvWI+\n4lqw32WH5KWLK+04giyeicMy60OkZLI9YxI3C7cGrfOhOQ8oevWydNhyiDx24PNm\n51gO7/wXPI5TZVY7LuI8LUQNJ2J5wP+zmfhqqm+ovhwcHJS5l6UbSy4pkjjuEPe0\nqkajjT5+F4X2q0h2wDRfRglAt3uIMo2BIjJ7Aihju6wRC0bltD2PDdu27hTWQECF\nfU5MdWMq5v7H5v3rkRDF6aQyLT4Gdh+JeFyuIh5ACWT8gAKQIvDTEA1qHmH/XSY0\nmxbYuRN5AoGBAORigLP8L/YcPeq2Y2sr0Q5A3CM2Y4wm4C4TrbsBX+6enncm4Yxv\nQ8ZBAmtB9UmqmRYQyaEySz9ys0KDY63dvj56l7LL38yua34twUzX/vK7isHTw39p\nY/mKupDTzmrqWMKzWf9MK5+AQt7I3gz6ArXTy/H9mIdOHnTKyvBHoU+HAoGBANim\nEwPyQyrwPgSQuYaMA6fdXweniw6WGTEsB+KQ2nYYrnrzXf4nUeoAAgGjyHFJnA5J\nbHgCEGa8S/cmNVio9DVVPOxD2Oe0DTFWPVaMwQmZ4jkru6lE7QGUmWi9J5Vs45fy\nLogtnV0opRrTwSpET3oTnMBfwVCD9LKXEdOgWHszAoGAFOivv8qm2XFcedCY6Ybp\nbNSjUtX35yzn+U/z59sIXWBIQcBdhe3p1oy9G/S98DCeM1b2HrvsB7MIll5REenr\nMO0oVkY0Bxkw3ixyNgbQYIiq+3PXwiJz9LSuv/OkQkWSOsEQzD68/61OcfcR3T5G\nYT8yvMTq4fhU8XxfeAAW1KECgYEAr/YrKaBh94ULChA171bXPUcqgQAOjHlS2sJF\nYTp/hT3EsS3rIJr1CBabipNpIMJFksEF7W7XvWmgVYtd9rW7K3ogslDk4kQ2FuVR\ninNl8hNfT0n68J9/1DHKa+x+Mvou3GGic46A6oIxn1lv4ZF7783wGbtsOqYCX+8d\nVoI8e0sCgYB4fGyT3qapaJ0bAIsQd8j7TUDzebIWTNygd4CaVktWiuN9tq5kBH1A\nuDx0369vGm4EjP23lvz8E16pGWe+y4qw7q75IPdb9O5ypHJUFSKdCVs6wzff4itE\nV6clqDJIbc1qoKwdkHPHojXuhth+iSO7uE1oBRu/Kl2FWWdtuw8WTg==\n-----END RSA PRIVATE KEY-----
+
+
+-----BEGIN CERTIFICATE-----\n
+MIIEdDCCA1ygAwIBAgIOAQAAAAABTu5BR/v+/f0wDQYJKoZIhvcNAQEFBQAwdTEL\n
+MAkGA1UEBhMCU0cxEjAQBgNVBAgTCVNpbmdhcG9yZTEgMB4GA1UEChMXU3RhbmRh\n
+cmQgQ2hhcnRlcmVkIEJhbmsxMDAuBgNVBAMTJ1N0YW5kYXJkIENoYXJ0ZXJlZCBC\n
+YW5rIEludGVybWVkaWF0ZSBDQTAeFw0xNTA4MDIxMTUyMTRaFw0xODA4MDIxMTUy\n
+MTRaMEoxCzAJBgNVBAYTAkdCMSAwHgYDVQQKExdTdGFuZGFyZCBDaGFydGVyZWQg\n
+QmFuazEZMBcGA1UEAxMQR0VVMDA0MjktMTM2NDIwOTCCASIwDQYJKoZIhvcNAQEB\n
+BQADggEPADCCAQoCggEBAMFHRW4mU+ZVPqygJjjxsyzHhIdNHvOhxrXLFEK4pn3s\n
+GmIlPI4qQ6HZwbX1O0qWhTA5YPPFx7u9aRo8xS6m/59KEH2QZuydy+FGYTk7f4/E\n
+q65uwNGivpfdCCBkED/Jd9Bcqj9qUzhwtIB9A7TleQ0gCjaZMPLYS4p3KkHsoIq2\n
+Tju4QzfjLAujZqKCjiqBFj0uIRHdh6qBPMu0GHMAYFXqy2jEBlmw3AiCTTvAzZ9t\n
+nz1Et1PifFSqFGld2yIQoE9mjSwf2yhB+9PjPcGrFiWwmuLNwYfxkSIVwO4qhPEw\n
+E6Y24STTp0kdSy9ZkcOkMoZHfts7vZqlKiLUtXzAtOUCAwEAAaOCASswggEnMIGX\n
+BgNVHSMEgY8wgYyAFAwxrr0mYnC5P2pwIMiDfwnQ5iFBoXGkbzBtMQswCQYDVQQG\n
+EwJTRzESMBAGA1UECAwJU2luZ2Fwb3JlMSAwHgYDVQQKDBdTdGFuZGFyZCBDaGFy\n
+dGVyZWQgQmFuazEoMCYGA1UEAwwfU3RhbmRhcmQgQ2hhcnRlcmVkIEJhbmsgUm9v\n
+dCBDQYIBaDA4BgNVHR8EMTAvMC2gK6AphidodHRwOi8vY3JsLm9tbmlyb290LmNv\n
+bS9TQ0Ivc3ViMjAyMC5jcmwwDwYDVR0TAQH/BAUwAwIBADAOBgNVHQ8BAf8EBAMC\n
+BPAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMBEGCWCGSAGG+EIBAQQE\n
+AwIFoDANBgkqhkiG9w0BAQUFAAOCAQEAUCiazBx5gHM6Cc/ntvpdMDWSAhttjcWc\n
+NaJgzr+mbRLhyltto9ahf/nGPr5ninOMzEZdWlRIRIpSL5WNvmaZi/xJV0YvyQPf\n
+EYqL/GhMtP5K4B/MI1BsX88NMCLtdttmO2uCTPDbrCL0aMHEycRRIlhuaeG39pJt\n
+7W+lTbAzqTWQilKgbM9MzxXvpwXo94zWuAdCo+jIsu33vm5+Nyo+Tt8SAhcdOnWq\n
+1yJlZ6SWC9Lz2OPNBYEmoGk91nYVjSHXzQWHca31xNxTfynxrDhamzcgvMmtCZ2D\n
+mRT7fVQ8lKWXmZLswFACBqr5ve0A/A/E3JD8Gq4tqoDJmJ3ZikhHlg==\n
+-----END CERTIFICATE-----
+
+-----BEGIN CERTIFICATE-----\nMIIEdDCCA1ygAwIBAgIOAQAAAAABTu5BR/v+/f0wDQYJKoZIhvcNAQEFBQAwdTEL\nMAkGA1UEBhMCU0cxEjAQBgNVBAgTCVNpbmdhcG9yZTEgMB4GA1UEChMXU3RhbmRh\ncmQgQ2hhcnRlcmVkIEJhbmsxMDAuBgNVBAMTJ1N0YW5kYXJkIENoYXJ0ZXJlZCBC\nYW5rIEludGVybWVkaWF0ZSBDQTAeFw0xNTA4MDIxMTUyMTRaFw0xODA4MDIxMTUy\nMTRaMEoxCzAJBgNVBAYTAkdCMSAwHgYDVQQKExdTdGFuZGFyZCBDaGFydGVyZWQg\nQmFuazEZMBcGA1UEAxMQR0VVMDA0MjktMTM2NDIwOTCCASIwDQYJKoZIhvcNAQEB\nBQADggEPADCCAQoCggEBAMFHRW4mU+ZVPqygJjjxsyzHhIdNHvOhxrXLFEK4pn3s\nGmIlPI4qQ6HZwbX1O0qWhTA5YPPFx7u9aRo8xS6m/59KEH2QZuydy+FGYTk7f4/E\nq65uwNGivpfdCCBkED/Jd9Bcqj9qUzhwtIB9A7TleQ0gCjaZMPLYS4p3KkHsoIq2\nTju4QzfjLAujZqKCjiqBFj0uIRHdh6qBPMu0GHMAYFXqy2jEBlmw3AiCTTvAzZ9t\nnz1Et1PifFSqFGld2yIQoE9mjSwf2yhB+9PjPcGrFiWwmuLNwYfxkSIVwO4qhPEw\nE6Y24STTp0kdSy9ZkcOkMoZHfts7vZqlKiLUtXzAtOUCAwEAAaOCASswggEnMIGX\nBgNVHSMEgY8wgYyAFAwxrr0mYnC5P2pwIMiDfwnQ5iFBoXGkbzBtMQswCQYDVQQG\nEwJTRzESMBAGA1UECAwJU2luZ2Fwb3JlMSAwHgYDVQQKDBdTdGFuZGFyZCBDaGFy\ndGVyZWQgQmFuazEoMCYGA1UEAwwfU3RhbmRhcmQgQ2hhcnRlcmVkIEJhbmsgUm9v\ndCBDQYIBaDA4BgNVHR8EMTAvMC2gK6AphidodHRwOi8vY3JsLm9tbmlyb290LmNv\nbS9TQ0Ivc3ViMjAyMC5jcmwwDwYDVR0TAQH/BAUwAwIBADAOBgNVHQ8BAf8EBAMC\nBPAwHQYDVR0lBBYwFAYIKwYBBQUHAwIGCCsGAQUFBwMEMBEGCWCGSAGG+EIBAQQE\nAwIFoDANBgkqhkiG9w0BAQUFAAOCAQEAUCiazBx5gHM6Cc/ntvpdMDWSAhttjcWc\nNaJgzr+mbRLhyltto9ahf/nGPr5ninOMzEZdWlRIRIpSL5WNvmaZi/xJV0YvyQPf\nEYqL/GhMtP5K4B/MI1BsX88NMCLtdttmO2uCTPDbrCL0aMHEycRRIlhuaeG39pJt\n7W+lTbAzqTWQilKgbM9MzxXvpwXo94zWuAdCo+jIsu33vm5+Nyo+Tt8SAhcdOnWq\n1yJlZ6SWC9Lz2OPNBYEmoGk91nYVjSHXzQWHca31xNxTfynxrDhamzcgvMmtCZ2D\nmRT7fVQ8lKWXmZLswFACBqr5ve0A/A/E3JD8Gq4tqoDJmJ3ZikhHlg==\n-----END CERTIFICATE-----
+
+project containers/etcd-config/                 branch YOUAPP-813
+project go/src/github.com/yougroupteam/you-api/ branch YOUAPP-813
+ -m	docker-etcd-config-entrypoint.sh
+project go/src/github.com/yougroupteam/you-config/ (*** NO BRANCH ***)
+ -m	factory.go
+ -m	you-config.go
+project go/src/github.com/yougroupteam/you-database/ branch YOUAPP-813
+project go/src/github.com/yougroupteam/you-forex-cache/ (*** NO BRANCH ***)
+ --	handlers/scale/scale.go
+ --	resources/GEU00429-1364209.pem
+ -m	service/service.go
+project go/src/github.com/yougroupteam/you-gps/ (*** NO BRANCH ***)
+ -m	handlers/gw/handler_test.go
+project go/src/github.com/yougroupteam/you-pb/  (*** NO BRANCH ***)
+ -m	util/error.go
+project infra/openshift-templates/              branch master
+
+curl --compressed -v localhost:8080/v1/users \
+  -H "Content-Type: application/json" \
+  -u test_client_1:test_secret \
+  -d '{
+    "username": "+85262821434",
+    "email": "keith@you.co",
+    "password": "test_password",
+	"you_id": "Y5234023"
+  }'
+
+
+curl --compressed -v localhost:8080/v1/otps \
+  -H "Content-Type: application/json" \
+  -u test_client_1:test_secret \
+  -d '{
+    "phone_number": "+85262821434"
+  }'
+
+
+
+curl -XPUT --compressed -v localhost:8080/v1/otps/1 \
+  -H "Content-Type: application/json" \
+  -u test_client_1:test_secret \
+  -d '{
+    "password": "559497"
+  }'
+
+
+curl --compressed -v localhost:8080/v1/oauth/tokens \
+  -u test_client_1:test_secret \
+  -H "X-Yougroup-OTP: c9a652ea-4765-4806-8144-c3a35e315180" \
+  -d "grant_type=password" \
+  -d "username=%2B85262821434" \
+  -d "password=test_password" \
+  -d "scope=read_write"
+
+{"_links":{"self":{"href":"/v1/otps/1"}},"id":1,"phone_number":"+85262821434","token":"c9a652ea-4765-4806-8144-c3a35e315180","verified":true}
+
+{"user_id":2,"access_token":"3b59ddcf-613c-4379-9dee-f23a617fc00d","expires_in":3600,"token_type":"Bearer","scope":"read_write","refresh_token":"2aee19d5-25e0-4139-b76e-57c3be98f91a"}
+
+curl --compressed -v localhost:8080/v1/oauth/tokens \
+  -u test_client_1:test_secret \
+  -d "grant_type=refresh_token" \
+  -d "refresh_token=2aee19d5-25e0-4139-b76e-57c3be98f91a"
+
+curl --compressed -v http://localhost:8080/v1/rates/SGD-USD \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 3b8d6d2e-31ab-4944-9b0c-f1e7acfdf054"  
+
+curl --compressed -v http://localhost:8080/v1/rates/SGD \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer 4e0070b8-fe55-4827-ae69-5efa55101dd1"  
+
+
+project containers/etcd-config/                 branch YOUAPP-813
+project go/src/github.com/yougroupteam/go-scale/ branch YOUAPP-813
+ -m	client.go
+ -m	client_interface.go
+project go/src/github.com/yougroupteam/you-api/ branch YOUAPP-813
+project go/src/github.com/yougroupteam/you-config/ branch YOUAPP-813
+project go/src/github.com/yougroupteam/you-database/ branch YOUAPP-813
+project go/src/github.com/yougroupteam/you-forex-cache/ branch YOUAPP-813
+ -m	handlers/handler.go
+ --	handlers/scale/local_cache.go
+ -m	handlers/scale/scale.go
+ -m	service/service.go
+project go/src/github.com/yougroupteam/you-pb/  branch YOUAPP-813
+project infra/openshift-templates/              branch master
+
+git branch
+git status -s
+git add -A .
+git commit -m "YOUAPP-813 #add logic to check if rate is valid"
+git push origin YOUAPP-813
+
+
+Others
+------
+
+# Uncomment the branches to upload:
+#
+>>># project containers/etcd-config/:
+#  branch YOUAPP-813 ( 2 commits, Wed Jun 28 17:57:48 2017 +0800) to remote branch master:
+#         4aff07cc YOUAPP-813 #Add scale config
+#         0281bdd2 YOUAPP-813 #Fix pem file path
+#
+>>># project go/src/github.com/yougroupteam/go-scale/:
+#  branch YOUAPP-813 ( 2 commits, Thu Jun 29 18:37:04 2017 +0800) to remote branch master:
+#         a71af320 YOUAPP-813 #add go-scale
+#         16a22a1f YOUAPP-813 #add logic to check if rate is valid
+#
+>>># project go/src/github.com/yougroupteam/you-config/:
+#  branch YOUAPP-813 ( 1 commit, Wed Jun 28 10:29:53 2017 +0800) to remote branch master:
+#         12d658df YOUAPP-813 #add scale config
+#
+>>># project go/src/github.com/yougroupteam/you-database/:
+#  branch YOUAPP-813 ( 2 commits, Thu Jun 22 17:53:23 2017 +0800) to remote branch master:
+#         f3d4f0c1 YOUAPP-813 #comment add spreads
+#         adda609d YOUAPP-813 #comment change len of spreads.fxProvider
+#
+>>># project go/src/github.com/yougroupteam/you-forex-cache/:
+#  branch YOUAPP-813 ( 2 commits, Thu Jun 29 18:40:44 2017 +0800) to remote branch master:
+#         d7cfe83c YOUAPP-813 #add scale handler for rate quotes
+#         89cb0ff6 YOUAPP-813 #add logic to check if rate is valid
+#
+>>># project go/src/github.com/yougroupteam/you-pb/:
+#  branch YOUAPP-813 ( 1 commit, Wed Jun 28 11:31:36 2017 +0800) to remote branch master:
+#         6f5bde57 YOUAPP-813: #prevent null point exception for nc
+
+	/*
+	data, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+	log.Printf("client.go:GetDetailedRates:%v\n", string(data))
+
+	var quotes GetQuotesResponse
+
+	json.Unmarshal(data, &quotes)
+	*/
+
+	// Decode response body
+	var quotes GetQuotesResponse
+	err = json.NewDecoder(resp.Body).Decode(&quotes)
+	if err != nil {
+		return nil, err
+	}
+	log.Printf("client.go:GetDetailedRates:%v\n", quotes)
+
+	return &quotes, nil

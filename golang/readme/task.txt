@@ -1,0 +1,24 @@
+To do list
+----------
+
+Quote:
+1. add new handler for scale which get quote from cache.
+2. add routine to auto update fx cache.
+3. add routine to post rate to GPS FX.
+
+Spread:
+1. design schema for spread management in db.
+2. load spread from db to cache on service startup.
+
+Transaction:
+[In app]
+1. send fx transaction request to scale using request.  Need to refresh quote price if already exipired.
+2. update ledger-profit on receiving fx transaction response.
+3. send load and unload request to GPS.
+4. update ledger-wallet-balance on receiving EHI load and unload message.
+
+[On demand]
+1. Link up EHI load message and unload message for on-demand fx.
+2. Get rate used for fx transaction and send the transaction to scale.
+3. On getting confirmation of fx transaction, send notification to user.
+

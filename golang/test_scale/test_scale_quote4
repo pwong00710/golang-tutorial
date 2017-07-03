@@ -1,0 +1,24 @@
+package main
+
+import (
+	"fmt"
+	"log"
+
+	config "github.com/yougroupteam/you-config"
+	scale "github.com/yougroupteam/go-scale"
+)
+
+func main() {
+	cnf := config.NewConfig(nil, true, false)
+
+	client, err := scale.NewClient(cnf.Scale.BaseURL, cnf.Scale.ClientID, cnf.Scale.APIKey, cnf.Scale.CertFile, cnf.Scale.KeyFile, cnf.Scale.CACert)
+		if err != nil {
+		log.Fatal(err)
+	}
+
+	quotes, err := client.GetDetailedRates()
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Printf("resp:%v", quotes)
+}

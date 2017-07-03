@@ -1,0 +1,450 @@
+<html>
+
+<head>
+    <style>
+        *,
+        :after,
+        :before {
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            text-align: center;
+            margin: 0;
+            background-color: #F3F3F3
+        }
+
+        p {
+            margin: 1em 0
+        }
+
+        section {
+            position: relative;
+            margin-bottom: 1em;
+            padding-bottom: 1em
+        }
+
+        section:after {
+            content: "";
+            display: inline-block;
+            background: #24A12C;
+            height: 1px;
+            width: 30%;
+            margin-left: -15%;
+            position: absolute;
+            left: 50%;
+            bottom: 0
+        }
+
+        section>:last-child {
+            margin-bottom: 0
+        }
+
+        select {
+            padding: 5px 10px;
+            border-color: #24A12C;
+            background: #fff;
+            color: #24A12C
+        }
+
+        button {
+            color: #fff;
+            background: #24A12C;
+            padding: 10px;
+            border: none;
+            cursor: pointer;
+            font-size: 16px
+        }
+
+        .uppercase {
+            text-transform: uppercase
+        }
+
+        .add-margin-right {
+            margin-right: 5px
+        }
+
+        .add-bold {
+            font-weight: 700
+        }
+
+        .page-container {
+            width: 768px;
+            margin: 0 auto;
+            text-align: left;
+            padding: 10px 0
+        }
+
+        .page-title {
+            color: #0085D4;
+            text-align: right
+        }
+
+        .highlight-text {
+            font-weight: 700;
+            display: inline-block;
+            background-color: #fff;
+            color: #0085D4;
+            padding: 5px 10px;
+            margin-top: 5px
+        }
+
+        .section-title {
+            color: #0085D4
+        }
+
+        .example {
+            padding: 10px;
+            border: 1px solid #ccc
+        }
+
+        .par-with-list {
+            margin-bottom: 0
+        }
+
+        .par-with-list+.par-list {
+            margin-top: 0
+        }
+
+        .fields-container>:first-child {
+            margin-top: 0
+        }
+
+        .url-params-for-service-container {
+            display: inline-block;
+            width: 100%
+        }
+
+        .url-params-for-service {
+            display: none
+        }
+
+        .url-params-for-service.show {
+            display: block
+        }
+
+        .params-for-env {
+            display: none
+        }
+
+        .params-for-env.show {
+            display: inline-block
+        }
+
+        .field-set {
+            margin: 15px 40px 15px 0;
+            float: left
+        }
+
+        .field-set.full-width {
+            margin-right: 0;
+            width: 100%
+        }
+
+        .field-set.clear-both {
+            clear: both
+        }
+
+        .field-label {
+            margin-bottom: 5px;
+            font-weight: 700;
+            color: #24A12C
+        }
+
+        .field-comment {
+            color: #24A12C;
+            font-weight: 400;
+            font-style: italic;
+            font-size: 14px
+        }
+
+        .field-item>span {
+            color: #24A12C
+        }
+
+        .custom-textbox {
+            display: inline-block;
+            border: 1px solid #24A12C;
+            padding: 5px 10px;
+            min-width: 50px;
+            background-color: #24A12C;
+            color: #fff;
+            background-color: #fff;
+            color: #24A12C
+        }
+
+        .custom-textbox.fixed {
+            border: none
+        }
+
+        .custom-textbox.attention {
+            color: #0085D4;
+            font-weight: 700
+        }
+
+        .custom-textbox.error {
+            color: red;
+            border-color: red
+        }
+
+        .service-list {
+            margin-bottom: 5px;
+            display: none
+        }
+
+        .service-list.show {
+            display: inline-block
+        }
+
+        .controls {
+            margin: 10px 0;
+            clear: both
+        }
+
+        .output-container {
+            display: none;
+            position: relative
+        }
+
+        .output-container.show {
+            display: block
+        }
+
+        .output {
+            display: inline-block;
+            width: 100%
+        }
+
+        .copy-curl-container {
+            position: absolute;
+            top: 0;
+            right: 0
+        }
+
+        .copy-curl-btn {
+            display: inline-block;
+            position: relative;
+            z-index: 1
+        }
+
+        .copy-curl-msg {
+            display: inline-block;
+            font-weight: 700;
+            color: #24A12C;
+            opacity: 0;
+            -webkit-transition: all 275ms ease-in-out;
+            -o-transition: all 275ms ease-in-out;
+            transition: all 275ms ease-in-out;
+            -webkit-transform: translateX(120%);
+            -ms-transform: translateX(120%);
+            -o-transform: translateX(120%);
+            transform: translateX(120%)
+        }
+
+        .copy-curl-msg.error {
+            color: red
+        }
+
+        .copy-curl-msg.show {
+            opacity: 1;
+            -webkit-transform: translateX(0);
+            -ms-transform: translateX(0);
+            -o-transform: translateX(0);
+            transform: translateX(0)
+        }
+
+        .table-result {
+            display: none
+        }
+
+        .table-result.show {
+            display: block
+        }
+
+        #drop_zone {
+            border: 2px dashed #bbb;
+            -moz-border-radius: 5px;
+            -webkit-border-radius: 5px;
+            border-radius: 5px;
+            padding: 25px;
+            text-align: center;
+            font: 20pt 700 Vollkorn;
+            color: #bbb
+        }
+    </style>
+</head>
+
+<body>
+    <div class="page-container" id="page-container">
+        <section>
+            <h2 class="page-title">SCALE DEMO</h2>
+            <p><a href="https://en.wikipedia.org/wiki/Hash-based_message_authentication_code" target="nh">HMAC</a> is calculated
+                for GET/POST using<br><span class="highlight-text">service + ":" + sub-service + ":" + customerId + ":" + timestamp + ":" + transactionId</span></p>
+            <p
+                class="par-with-list">For example:</p>
+                <ul class="par-list">
+                    <li>service: quotes-service</li>
+                    <li>sub-service: get-quotes</li>
+                    <li>customerId: EZL</li>
+                    <li>timestamp: 1454382484366</li>
+                    <li>transactionId: e0d63ba997354229a8e458e6b04d1ced</li>
+                </ul>
+                <p>Note that strictly speaking, the <i>timestamp</i> is nothing more than a continuously increasing integer.<br>The
+                    <i>transactionId</i> should be a high-entropy value such as the ones generated by <a href="https://docs.oracle.com/javase/8/docs/api/java/util/UUID.html"
+                        target="nh">this</a> or <a href="https://msdn.microsoft.com/en-us/library/system.guid.newguid(v=vs.110).aspx"
+                        target="nh">that</a>.<br><br>A timetamp is the difference, measured in <i><u>milliseconds</u></i>, between
+                    the current time and midnight, January 1, 1970 UTC.</p>
+        </section>
+        <section id="user-inputs">
+            <h3 class="section-title">Inputs</h3>
+            <div class="fields-container">
+                <div class="field-set clear-both">
+                    <div class="field-label">Environment:</div>
+                    <div class="field-item"><select onchange="setEnv(this)" id="ENV" class="add-margin-right"><option value="https://www.demo.fx-scale.com">DEMO</option></select>
+                        <div
+                            id="ENVVAR" contenteditable="true" class="custom-textbox"></div>
+                </div>
+            </div>
+            <div class="field-set clear-both">
+                <div class="field-label">Application:</div>
+                <div class="field-item"><select onchange="setApplication(this)" id="application-list" class="add-margin-right"><option value="scale">CORE</option></select>
+                    <div
+                        id="application" contenteditable="true" class="custom-textbox" style="width:150px">scale</div>
+            </div>
+    </div>
+    <div class="field-set">
+        <div class="field-label">Application Version:</div>
+        <div class="field-item">
+            <div id="application-version" contenteditable="true" class="custom-textbox">v1</div>
+        </div>
+    </div>
+    <div class="field-set clear-both">
+        <div class="field-label">Customer Id:</div>
+        <div class="field-item">
+            <div id="CUSTID" contenteditable="true" class="custom-textbox">EZL</div>
+        </div>
+    </div>
+    <div class="field-set clear-both params-for-env DEMO-env-param" id="cert-pwd-field">
+        <div class="field-label">Certificate Pwd:</div>
+        <div class="field-item">
+            <div id="CERT" contenteditable="true" class="custom-textbox"></div>
+        </div>
+    </div>
+    <div class="field-set clear-both">
+        <div class="field-label">API Key: <span class="field-comment">(Please make sure API Key is correct)</span></div>
+        <div class="field-item">
+            <div id="APIKEY" contenteditable="true" class="custom-textbox">API_KEY</div>
+        </div>
+    </div>
+    <div class="field-set">
+        <div class="field-label">Transaction Id:</div>
+        <div class="field-item">
+            <div id="TXID" contenteditable="true" class="custom-textbox">e0d63ba997354229a8e458e6b04d1ced</div>
+        </div>
+    </div>
+    <div class="services-for-application-container">
+        <div class="field-set clear-both">
+            <div class="field-label">Service:</div>
+            <div class="field-item"><select onchange="setService(this)" id="scale-service" class="service-list show add-margin-right"><option value="quotes-service/get-quotes">GET-QUOTES</option><option value="transactions-service/get-transaction">GET-TRANSACTION</option><option value="reporting-service/get-report">GET-REPORT</option><option value="transactions-service/post-transactions">POST-TRANSACTIONS</option><option value="transactions-service/post-indicative-transactions">POST-INDICATIVE-TRANSACTIONS</option></select>
+                <div
+                    id="GPVAR" contenteditable="true" class="custom-textbox"></div>
+        </div>
+    </div>
+    </div>
+    <div class="url-params-for-service-container">
+        <div id="get-quotes-params" class="url-params-for-service show">
+            <div class="field-set">
+                <div class="field-label">Rate Category Id:</div>
+                <div class="field-item">
+                    <div id="getQuotes-rateCategoryId" contenteditable="true" class="custom-textbox">*</div>
+                </div>
+            </div>
+        </div>
+        <div id="post-transactions-params" class="url-params-for-service">
+            <div class="field-set full-width">
+                <div class="field-label">Body (For Post Transactions):</div>
+                <div class="field-item">
+                    <div class="custom-textbox attention fixed">Please update parameters in <a href="PostTransactions_EZL_EZL_EZL.json" target="_blank" class="add-bold">PostTransactions_EZL.json</a></div>
+                </div>
+            </div>
+        </div>
+        <div id="get-transaction-params" class="url-params-for-service">
+            <div class="field-set">
+                <div class="field-label">Customer Transaction Id:</div>
+                <div class="field-item">
+                    <div id="get-transaction-customerTxId" contenteditable="true" class="custom-textbox"></div>
+                </div>
+            </div>
+        </div>
+        <div id="post-indicative-transactions-params" class="url-params-for-service">
+            <div class="field-set full-width">
+                <div class="field-label">Body (For Post Indicative Transactions):</div>
+                <div class="field-item">
+                    <div class="custom-textbox attention fixed">Please update parameters in <a href="PostIndicativeTransactions_EZL.json" target="_blank" class="add-bold">PostIndicativeTransactions_EZL.json</a></div>
+                </div>
+            </div>
+        </div>
+        <div id="get-report-params" class="url-params-for-service show">
+            <div class="field-set">
+                <div class="field-label">Report Type:</div>
+                <div class="field-item"><select id="get-report-reportType"><option value="CLIENT_AGGREGATION">CLIENT_AGGREGATION</option><option value="CLIENT_MONTHLY_TX_REBATES_STL_DATE">CLIENT_MONTHLY_TX_REBATES_STL_DATE</option><option value="CLIENT_MONTHLY_TX_REBATES_TRD_DATE">CLIENT_MONTHLY_TX_REBATES_TRD_DATE</option><option value="CLIENT_RATES">CLIENT_RATES</option><option value="CLIENT_RATE_DEVIATION">CLIENT_RATE_DEVIATION</option><option value="CLIENT_REBATES">CLIENT_REBATES</option><option value="CLIENT_TX">CLIENT_TX</option><option value="CLIENT_TX_AGGREGATION">CLIENT_TX_AGGREGATION</option><option value="CLIENT_TX_NET_AMOUNT">CLIENT_TX_NET_AMOUNT</option></select></div>
+            </div>
+            <div class="field-set clear-both">
+                <div class="field-label">From Date (DD-MM-YYYY):</div>
+                <div class="field-item">
+                    <div id="get-report-fromDate" contenteditable="true" class="custom-textbox"></div>
+                </div>
+            </div>
+            <div class="field-set">
+                <div class="field-label">From Time (24-hour HH:MM):</div>
+                <div class="field-item">
+                    <div id="get-report-fromTime" contenteditable="true" class="custom-textbox"></div>
+                </div>
+            </div>
+            <div class="field-set clear-both">
+                <div class="field-label">To Date (DD-MM-YYYY):</div>
+                <div class="field-item">
+                    <div id="get-report-toDate" contenteditable="true" class="custom-textbox"></div>
+                </div>
+            </div>
+            <div class="field-set">
+                <div class="field-label">To Time (24-hour HH:MM):</div>
+                <div class="field-item">
+                    <div id="get-report-toTime" contenteditable="true" class="custom-textbox"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="field-set clear-both">
+        <div class="field-label">Proxy:</div>
+        <div class="field-item"><span>Enable?</span> <input type="checkbox" id="PROXY_SELECTED">
+            <div id="PROXY" contenteditable="true" class="custom-textbox"></div>
+        </div>
+    </div>
+    </div>
+    <div class="controls"><button onclick="genHMAC()">Generate HMAC</button> <span id="status"></span></div>
+    <div class="output-container">
+        <div class="copy-curl-container">
+            <div id="copy-curl-msg" class="copy-curl-msg">copied!</div><button onclick="copyToClipboard()" class="copy-curl-btn">Copy cURL</button></div>
+        <div id="OUTPUT"
+            contenteditable="true" class="custom-textbox output"></div>
+    </div>
+    </section>
+    <section id="table-result" class="table-result"></section>
+    </div>
+    <script type="text/javascript">
+        var CryptoJS = CryptoJS || function (t, n) { var i = {}, e = i.lib = {}, r = function () { }, s = e.Base = { extend: function (t) { r.prototype = this; var n = new r; return t && n.mixIn(t), n.hasOwnProperty("init") || (n.init = function () { n.$super.init.apply(this, arguments) }), n.init.prototype = n, n.$super = this, n }, create: function () { var t = this.extend(); return t.init.apply(t, arguments), t }, init: function () { }, mixIn: function (t) { for (var n in t) t.hasOwnProperty(n) && (this[n] = t[n]); t.hasOwnProperty("toString") && (this.toString = t.toString) }, clone: function () { return this.init.prototype.extend(this) } }, o = e.WordArray = s.extend({ init: function (t, i) { t = this.words = t || [], this.sigBytes = i != n ? i : 4 * t.length }, toString: function (t) { return (t || c).stringify(this) }, concat: function (t) { var n = this.words, i = t.words, e = this.sigBytes; if (t = t.sigBytes, this.clamp(), e % 4) for (var r = 0; r < t; r++)n[e + r >>> 2] |= (i[r >>> 2] >>> 24 - 8 * (r % 4) & 255) << 24 - 8 * ((e + r) % 4); else if (65535 < i.length) for (r = 0; r < t; r += 4)n[e + r >>> 2] = i[r >>> 2]; else n.push.apply(n, i); return this.sigBytes += t, this }, clamp: function () { var n = this.words, i = this.sigBytes; n[i >>> 2] &= 4294967295 << 32 - 8 * (i % 4), n.length = t.ceil(i / 4) }, clone: function () { var t = s.clone.call(this); return t.words = this.words.slice(0), t }, random: function (n) { for (var i = [], e = 0; e < n; e += 4)i.push(4294967296 * t.random() | 0); return new o.init(i, n) } }), a = i.enc = {}, c = a.Hex = { stringify: function (t) { var n = t.words; t = t.sigBytes; for (var i = [], e = 0; e < t; e++) { var r = n[e >>> 2] >>> 24 - 8 * (e % 4) & 255; i.push((r >>> 4).toString(16)), i.push((15 & r).toString(16)) } return i.join("") }, parse: function (t) { for (var n = t.length, i = [], e = 0; e < n; e += 2)i[e >>> 3] |= parseInt(t.substr(e, 2), 16) << 24 - 4 * (e % 8); return new o.init(i, n / 2) } }, h = a.Latin1 = { stringify: function (t) { var n = t.words; t = t.sigBytes; for (var i = [], e = 0; e < t; e++)i.push(String.fromCharCode(n[e >>> 2] >>> 24 - 8 * (e % 4) & 255)); return i.join("") }, parse: function (t) { for (var n = t.length, i = [], e = 0; e < n; e++)i[e >>> 2] |= (255 & t.charCodeAt(e)) << 24 - 8 * (e % 4); return new o.init(i, n) } }, f = a.Utf8 = { stringify: function (t) { try { return decodeURIComponent(escape(h.stringify(t))) } catch (n) { throw Error("Malformed UTF-8 data") } }, parse: function (t) { return h.parse(unescape(encodeURIComponent(t))) } }, u = e.BufferedBlockAlgorithm = s.extend({ reset: function () { this._data = new o.init, this._nDataBytes = 0 }, _append: function (t) { "string" == typeof t && (t = f.parse(t)), this._data.concat(t), this._nDataBytes += t.sigBytes }, _process: function (n) { var i = this._data, e = i.words, r = i.sigBytes, s = this.blockSize, a = r / (4 * s), a = n ? t.ceil(a) : t.max((0 | a) - this._minBufferSize, 0); if (n = a * s, r = t.min(4 * n, r), n) { for (var c = 0; c < n; c += s)this._doProcessBlock(e, c); c = e.splice(0, n), i.sigBytes -= r } return new o.init(c, r) }, clone: function () { var t = s.clone.call(this); return t._data = this._data.clone(), t }, _minBufferSize: 0 }); e.Hasher = u.extend({ cfg: s.extend(), init: function (t) { this.cfg = this.cfg.extend(t), this.reset() }, reset: function () { u.reset.call(this), this._doReset() }, update: function (t) { return this._append(t), this._process(), this }, finalize: function (t) { return t && this._append(t), this._doFinalize() }, blockSize: 16, _createHelper: function (t) { return function (n, i) { return new t.init(i).finalize(n) } }, _createHmacHelper: function (t) { return function (n, i) { return new l.HMAC.init(t, i).finalize(n) } } }); var l = i.algo = {}; return i }(Math); !function (t) { for (var n = CryptoJS, i = n.lib, e = i.WordArray, r = i.Hasher, i = n.algo, s = [], o = [], a = function (t) { return 4294967296 * (t - (0 | t)) | 0 }, c = 2, h = 0; 64 > h;) { var f; t: { f = c; for (var u = t.sqrt(f), l = 2; l <= u; l++)if (!(f % l)) { f = !1; break t } f = !0 } f && (8 > h && (s[h] = a(t.pow(c, .5))), o[h] = a(t.pow(c, 1 / 3)), h++), c++ } var p = [], i = i.SHA256 = r.extend({ _doReset: function () { this._hash = new e.init(s.slice(0)) }, _doProcessBlock: function (t, n) { for (var i = this._hash.words, e = i[0], r = i[1], s = i[2], a = i[3], c = i[4], h = i[5], f = i[6], u = i[7], l = 0; 64 > l; l++) { if (16 > l) p[l] = 0 | t[n + l]; else { var d = p[l - 15], y = p[l - 2]; p[l] = ((d << 25 | d >>> 7) ^ (d << 14 | d >>> 18) ^ d >>> 3) + p[l - 7] + ((y << 15 | y >>> 17) ^ (y << 13 | y >>> 19) ^ y >>> 10) + p[l - 16] } d = u + ((c << 26 | c >>> 6) ^ (c << 21 | c >>> 11) ^ (c << 7 | c >>> 25)) + (c & h ^ ~c & f) + o[l] + p[l], y = ((e << 30 | e >>> 2) ^ (e << 19 | e >>> 13) ^ (e << 10 | e >>> 22)) + (e & r ^ e & s ^ r & s), u = f, f = h, h = c, c = a + d | 0, a = s, s = r, r = e, e = d + y | 0 } i[0] = i[0] + e | 0, i[1] = i[1] + r | 0, i[2] = i[2] + s | 0, i[3] = i[3] + a | 0, i[4] = i[4] + c | 0, i[5] = i[5] + h | 0, i[6] = i[6] + f | 0, i[7] = i[7] + u | 0 }, _doFinalize: function () { var n = this._data, i = n.words, e = 8 * this._nDataBytes, r = 8 * n.sigBytes; return i[r >>> 5] |= 128 << 24 - r % 32, i[(r + 64 >>> 9 << 4) + 14] = t.floor(e / 4294967296), i[(r + 64 >>> 9 << 4) + 15] = e, n.sigBytes = 4 * i.length, this._process(), this._hash }, clone: function () { var t = r.clone.call(this); return t._hash = this._hash.clone(), t } }); n.SHA256 = r._createHelper(i), n.HmacSHA256 = r._createHmacHelper(i) }(Math), function () { var t = CryptoJS, n = t.enc.Utf8; t.algo.HMAC = t.lib.Base.extend({ init: function (t, i) { t = this._hasher = new t.init, "string" == typeof i && (i = n.parse(i)); var e = t.blockSize, r = 4 * e; i.sigBytes > r && (i = t.finalize(i)), i.clamp(); for (var s = this._oKey = i.clone(), o = this._iKey = i.clone(), a = s.words, c = o.words, h = 0; h < e; h++)a[h] ^= 1549556828, c[h] ^= 909522486; s.sigBytes = o.sigBytes = r, this.reset() }, reset: function () { var t = this._hasher; t.reset(), t.update(this._iKey) }, update: function (t) { return this._hasher.update(t), this }, finalize: function (t) { var n = this._hasher; return t = n.finalize(t), n.reset(), n.finalize(this._oKey.clone().concat(t)) } }) }()
+    </script>
+    <script type="text/javascript">
+        !function () { var r = CryptoJS, a = r.lib.WordArray; r.enc.Base64 = { stringify: function (r) { var a = r.words, t = r.sigBytes, n = this._map; r.clamp(), r = []; for (var i = 0; i < t; i += 3)for (var e = (a[i >>> 2] >>> 24 - 8 * (i % 4) & 255) << 16 | (a[i + 1 >>> 2] >>> 24 - 8 * ((i + 1) % 4) & 255) << 8 | a[i + 2 >>> 2] >>> 24 - 8 * ((i + 2) % 4) & 255, f = 0; 4 > f && i + .75 * f < t; f++)r.push(n.charAt(e >>> 6 * (3 - f) & 63)); if (a = n.charAt(64)) for (; r.length % 4;)r.push(a); return r.join("") }, parse: function (r) { var t = r.length, n = this._map, i = n.charAt(64); i && (i = r.indexOf(i), -1 != i && (t = i)); for (var i = [], e = 0, f = 0; f < t; f++)if (f % 4) { var c = n.indexOf(r.charAt(f - 1)) << 2 * (f % 4), h = n.indexOf(r.charAt(f)) >>> 6 - 2 * (f % 4); i[e >>> 2] |= (c | h) << 24 - 8 * (e % 4), e++ } return a.create(i, e) }, _map: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=" } }()
+    </script>
+    <script type="text/javascript">
+        !function () { function t(t) { this.el = t; for (var e = t.className.replace(/^\s+|\s+$/g, "").split(/\s+/), n = 0; n < e.length; n++)i.call(this, e[n]) } function e(t, e, n) { Object.defineProperty ? Object.defineProperty(t, e, { get: n }) : t.__defineGetter__(e, n) } if (!("undefined" == typeof window.Element || "classList" in document.documentElement)) { var n = Array.prototype, i = n.push, o = n.splice, s = n.join; t.prototype = { add: function (t) { this.contains(t) || (i.call(this, t), this.el.className = this.toString()) }, contains: function (t) { return -1 != this.el.className.indexOf(t) }, item: function (t) { return this[t] || null }, remove: function (t) { if (this.contains(t)) { for (var e = 0; e < this.length && this[e] != t; e++); o.call(this, e, 1), this.el.className = this.toString() } }, toString: function () { return s.call(this, " ") }, toggle: function (t) { return this.contains(t) ? this.remove(t) : this.add(t), this.contains(t) } }, window.DOMTokenList = t, e(Element.prototype, "classList", function () { return new t(this) }) } }(), function (t, e) { function n(n, i) { function o(s) { e.removeEventListener("DOMContentLoaded", o), n.call(i || t, s) } function s(o) { "complete" === e.readyState && (e.detachEvent("onreadystatechange", s), n.call(i || t, o)) } e.addEventListener && e.addEventListener("DOMContentLoaded", o) || e.attachEvent && e.attachEvent("onreadystatechange", s) } t.domReady = n }(window, document)
+    </script>
+    <script type="text/javascript">
+        function copyToClipboard() { var e = document.createElement("textarea"), t = document.getElementById("copy-curl-msg"), o = document.body; t.classList.remove("show", "successful", "error"), e.classList.add("temp-copyarea"), e.value = CURL_COMMAND, o.appendChild(e), e.select(); var n = "error"; try { var a = document.execCommand("copy"); n = a ? "successful" : "error", msg = a ? "copied!" : "copy failed!", console.log("Copying text command was " + msg) } catch (s) { msg = "copy failed!", console.log("Oops, unable to copy") } t.innerHTML = msg, t.classList.add("show", n), o.removeChild(e), setTimeout(function () { t.classList.remove("show", "successful", "error") }, 700) } function setEnv(e) { var t = e.value.trim(); customTextbox.setValue(document.getElementById("ENVVAR"), t), SELECTED_ENV = ENV[t], document.getElementById("application-list").dispatchEvent(new Event("change")); for (var o = document.querySelectorAll(".params-for-env"), n = 0, a = o.length; n < a; ++n)o[n].classList.remove("show"); for (var s = document.querySelectorAll("." + SELECTED_ENV + "-env-param"), n = 0, a = s.length; n < a; ++n)s[n].classList.add("show"); var r = document.getElementById("PROXY_SELECTED"); switch (SELECTED_ENV) { case "DEMO": customTextbox.setValue(document.getElementById("CERT"), CERT_PWD_LIST[SELECTED_ENV]), customTextbox.setValue(document.getElementById("PROXY"), PROXY_LIST[SELECTED_ENV]); break; default: customTextbox.setValue(document.getElementById("CERT"), CERT_PWD_LIST["default"]), customTextbox.setValue(document.getElementById("PROXY"), PROXY_LIST["default"]), r.checked = !1 } } function setApplication(e) { var t = e.value.trim(); SELECTED_APPLICATION = t, customTextbox.setValue(document.getElementById("application"), t); for (var o = document.querySelectorAll(".service-list"), n = 0, a = o.length; n < a; ++n)o[n].classList.remove("show"); var s = document.getElementById(t + "-service"); s && s.classList.add("show"), document.getElementById(t + "-service").dispatchEvent(new Event("change")) } function setService(e) { var t = e.value, o = t.split("/"), n = o[1], a = null; PROPS[SELECTED_ENV] && PROPS[SELECTED_ENV][n] ? a = PROPS[SELECTED_ENV][n].customerId : PROPS["default"] && PROPS["default"][n] && (a = PROPS["default"][n].customerId), customTextbox.setValue(document.getElementById("GPVAR"), t.trim()), a ? customTextbox.setValue(document.getElementById("CUSTID"), a.trim()) : a = customTextbox.getValue(document.getElementById("CUSTID")); var s = APIKEY_LIST[SELECTED_ENV] ? APIKEY_LIST[SELECTED_ENV].customer && APIKEY_LIST[SELECTED_ENV].customer[a] ? APIKEY_LIST[SELECTED_ENV].customer[a] : APIKEY_LIST[SELECTED_ENV].apiKey : null; s && customTextbox.setValue(document.getElementById("APIKEY"), s.trim()); for (var r = document.querySelectorAll(".url-params-for-service"), u = 0, c = r.length; u < c; ++u)r[u].classList.remove("show"); var m = document.getElementById(n + "-params"); if (m) switch (m.classList.add("show"), n) { case "get-transaction": var l = "CUSTOMER_TX_ID"; PROPS[SELECTED_ENV] && PROPS[SELECTED_ENV][n] && (l = PROPS[SELECTED_ENV][n].customerTxId || "CUSTOMER_TX_ID"), customTextbox.setValue(document.getElementById("get-transaction-customerTxId"), l.trim()); break; case "get-report": var d = (new Date).getTime(), E = "DD-MM-YYYY", i = "THH-TMM", g = formatDate(d, E), T = formatDate(d, i); console.log("todayDate: ", g); var p = document.getElementById("get-report-fromDate"), I = document.getElementById("get-report-toDate"), x = document.getElementById("get-report-fromTime"), y = document.getElementById("get-report-toTime"); "" === customTextbox.getValue(p) && customTextbox.setValue(p, g), "" === customTextbox.getValue(I) && customTextbox.setValue(I, g), "" === customTextbox.getValue(x) && customTextbox.setValue(x, "00:00"), "" === customTextbox.getValue(y) && customTextbox.setValue(y, T) } } function genUrlParams(e) { var t = customTextbox.getValue(document.getElementById("CUSTID")), o = [t]; switch (e) { case "get-quotes": var n = customTextbox.getValue(document.getElementById("getQuotes-rateCategoryId")); o.push(n); break; case "post-transactions": break; case "get-ref-quote": var a = customTextbox.getValue(document.getElementById("getRefQuote-country")), s = customTextbox.getValue(document.getElementById("getRefQuote-buyCurrency")), r = customTextbox.getValue(document.getElementById("getRefQuote-sellCurrency")), u = customTextbox.getValue(document.getElementById("getRefQuote-tenor")), c = [], m = customTextbox.getValue(document.getElementById("getRefQuote-sellAmount")), l = customTextbox.getValue(document.getElementById("getRefQuote-buyAmount")), d = document.querySelector('input[name="get-ref-quotes-sell-or-buy"]:checked').value, E = customTextbox.getValue(document.getElementById("getRefQuote-segment")), i = customTextbox.getValue(document.getElementById("getRefQuote-subSegment")), g = customTextbox.getValue(document.getElementById("getRefQuote-transactionCode")); "sellAmount" === d ? c.push("?sellAmount=" + m) : c.push("?buyAmount=" + l), c.push("SEGMENT=" + E), c.push("SUBSEGMENT=" + i), c.push("TRANSACTIONCODE=" + g), o.push(a.toUpperCase()), o.push(s.toUpperCase()), o.push(r.toUpperCase()), o.push(u.toUpperCase() + c.join("&")); break; case "post-market-transactions-internal": break; case "get-transaction": var T = customTextbox.getValue(document.getElementById("get-transaction-customerTxId")); o.push(T); break; case "get-ib-transaction": var T = customTextbox.getValue(document.getElementById("get-ib-transaction-customerTxId")); o.push(T); break; case "post-indicative-transactions": break; case "get-report": var p = document.getElementById("get-report-reportType"), I = p.options[p.selectedIndex].value, x = customTextbox.getValue(document.getElementById("get-report-fromDate")), y = customTextbox.getValue(document.getElementById("get-report-fromTime")), S = customTextbox.getValue(document.getElementById("get-report-toDate")), v = customTextbox.getValue(document.getElementById("get-report-toTime")); o.push(I), o.push(x), o.push(y), o.push(S), o.push(v) }return o.join("/") } function genCurl(e, t) { var o = "curl -k", n = '--header "SCALE_TS: ' + t.timestamp + '"', a = '--header "SCALE_TX_ID: ' + t.txId + '"', s = '--header "SCALE_HMAC: ' + t.hmac + '"', r = '--header "Content-Type: application/json"', u = "", c = t.tlsv1, m = "", l = '"' + t.url + '"'; switch (t.cert && (u = '--cert "' + t.cert + '"'), t.proxy && (m = "--proxy " + t.proxy), e) { case "post-transactions": l = "-X POST -d @PostTransactions_EZL.json " + l; break; case "post-market-transactions-internal": l = "-X POST -d @PostMarketTransactionsInternal.json " + l; break; case "post-indicative-transactions": l = "-X POST -d @PostIndicativeTransactions_EZL.json " + l }return [o, n, a, s, r, u, c, m, l].join(" ") } function validateField(e, t) { switch (e) { case "get-report-fromDate": case "get-report-toDate": var o = /^(0[1-9]|[12][0-9]|3[01])-(0[1-9]|1[012])-(19|20)\d\d$/; return null !== t.match(o); case "get-report-fromTime": case "get-report-toTime": var o = /^([01]\d|2[0-3]):?([0-5]\d)$/; return null !== t.match(o); default: return !0 } } function validateInputs(e) { var t = !0; switch (e) { case "get-report": for (var o = ["get-report-fromDate", "get-report-toDate", "get-report-fromTime", "get-report-toTime"], n = 0, a = o.length; n < a; n++) { var s = o[n], r = document.getElementById(s); validateField(s, customTextbox.getValue(r)) ? r.classList.remove("error") : (t = !1, r.classList.add("error")) } }return t } function genHMAC() { console.log("### Generating HMAC ###"); var e = customTextbox.getValue(document.getElementById("ENVVAR")), t = customTextbox.getValue(document.getElementById("application")), o = customTextbox.getValue(document.getElementById("application-version")), n = [e, t, o].join("/"), a = customTextbox.getValue(document.getElementById("GPVAR")), s = a.split("/"), r = s[0], u = s[1], c = customTextbox.getValue(document.getElementById("CUSTID")), m = Date.now(), l = customTextbox.getValue(document.getElementById("TXID")), d = customTextbox.getValue(document.getElementById("APIKEY")), E = "<br>", i = !1, g = !0; switch (u) { case "get-report": g = validateInputs(u) }var T = r + ":" + u + ":" + c + ":" + m + ":" + l, p = CryptoJS.HmacSHA256(T, d), I = CryptoJS.enc.Base64.stringify(p); "post-market-transactions-internal" === u && (i = !0), console.log("apikey: ", d), console.log("data2hash: "), console.log("service: ", r), console.log("sub service: ", u), console.log("customer Id: ", c), console.log("timestamp: ", m), console.log("transaction Id: ", l), console.log(T), console.log("hashBase64: ", I); var x = "Header Data" + E + E; x = x + "SCALE_TS: " + m + E, x = x + "SCALE_TX_ID: " + l + E, x = x + "SCALE_HMAC: " + I + E + E, x = x + "URL" + E + E; var y = document.getElementById("PROXY_SELECTED").checked, S = null; y && (S = customTextbox.getValue(document.getElementById("PROXY"))); var v = customTextbox.getValue(document.getElementById("CERT")), C = [n, a, genUrlParams(u)].join("/"); x = x + C + E + E; var L = ""; switch (SELECTED_ENV) { case "DEMO": case "PROD": L = "--tlsv1"; break; default: L = "" }var f = { timestamp: m, txId: l, hmac: I, proxy: S, cert: v, tlsv1: L, url: C }, V = genCurl(u, f); x = x + "cURL" + E + E, x = x + V + E; var b = document.querySelector(".output-container"), D = document.getElementById("OUTPUT"); return b.classList.add("show"), customTextbox.setValue(D, x), D.scrollIntoView(), CURL_COMMAND = V, { ts: m, txid: l, hmac: I, finalURL: C } } function createCORSRequest(e, t) { var o = new XMLHttpRequest; return "withCredentials" in o ? o.open(e, t, !0) : "undefined" != typeof XDomainRequest ? (o = new XDomainRequest, o.open(e, t)) : o = null, o } function appendGETParams(e, t) { var o = []; for (var n in t) o.push(encodeURIComponent(n) + "=" + encodeURIComponent(t[n])); return e + (o.length ? "?" + o.join("&") : "") } function emptyDom(e) { for (; e.firstChild;)e.removeChild(e.firstChild) } function userInputOnFocusOut(e) { var t = e.target || e.toElement; if ("div" === t.nodeName.toLowerCase() && t.classList.contains("custom-textbox") && "OUTPUT" !== t.id) { var o = t.innerHTML.replace(/<(?:.|\n)*?>/gm, "").trim(); if ("CUSTID" === t.id) { var n = APIKEY_LIST[SELECTED_ENV].apiKey || null; APIKEY_LIST[SELECTED_ENV] && APIKEY_LIST[SELECTED_ENV].customer && APIKEY_LIST[SELECTED_ENV].customer[o] && (n = APIKEY_LIST[SELECTED_ENV].customer[o] || null), n && customTextbox.setValue(document.getElementById("APIKEY"), n.trim()) } t.innerHTML = o } e.stopPropagation() } var ENV = { "https://www.demo.fx-scale.com": "DEMO" }, APIKEY_LIST = { DEMO: { customer: { EZL: "a1fc360d-fe95-4182-a9f3-a7180887771a" } } }, CERT_PWD_LIST = { "default": "", DEMO: "GEU00429-1364209.pem:1234" }, PROXY_LIST = { "default": "", DEMO: "10.65.128.43:8080" }, PROPS = { DEMO: {} }, CURL_COMMAND = "", SELECTED_ENV = "", SELECTED_APPLICATION = ""; String.prototype.trim || (String.prototype.trim = function () { return this.replace(/^\s+|\s+$/g, "") }); var addLeadingZeros = function (e, t) { return t > e.toString().length ? (Array(t).join("0") + e).slice(-t) : e }, formatDate = function (e, t) { var o = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]; try { var n = new Date(e), a = addLeadingZeros(n.getDate(), 2), s = n.getMonth() + 1, r = o[s], u = addLeadingZeros(s, 2), c = n.getFullYear(), m = addLeadingZeros(n.getHours(), 2), l = addLeadingZeros(n.getMinutes(), 2), d = addLeadingZeros(n.getSeconds(), 2), E = ""; if (t) switch (t) { case "YYYY-MM-DD": E = c + "-" + u + "-" + a; break; case "DD-MM-YYYY": E = a + "-" + u + "-" + c; break; case "THH-TMM": E = m + ":" + l } else E = a + " " + r + " " + c + " @ " + m + ":" + l + ":" + d; return E } catch (i) { return "" } }, customTextbox = { getValue: function (e) { return e.innerHTML.replace(/<(?:.|\n)*?>/gm, "").trim() }, setValue: function (e, t) { e.innerHTML = t } }; domReady(function (e) { document.getElementById("user-inputs").addEventListener("focusout", userInputOnFocusOut, !1), document.getElementById("ENV").dispatchEvent(new Event("change")) })
+    </script>
+</body>
+
+</html>

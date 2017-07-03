@@ -1,0 +1,127 @@
+{
+    "clientID": "EZL",
+    "clientRequestID": "e0d63ba997354229a8e458e6b04d1ced",
+    "status": "SUCCESS",
+    "rates": [
+        {
+            "rateType": "TRADABLE",
+            "rateQuoteID": "EZL1U03RBUUBES6N",
+            "rateCategoryID": "EZLSG",
+            "validFrom": 1498010200811,
+            "validTill": 1498096600811,
+            "buyCurrency": "NZD",
+            "sellCurrency": "SGD",
+            "tenor": 2,
+            "rate": "0.9443",
+            "status": "GOOD"
+        },
+        {
+            "rateType": "TRADABLE",
+            "rateQuoteID": "EZL1LWVBQ40G8B6P",
+            "rateCategoryID": "EZLSG",
+            "validFrom": 1498010200811,
+            "validTill": 1498096600811,
+            "buyCurrency": "AUD",
+            "sellCurrency": "SGD",
+            "tenor": 2,
+            "rate": "0.9899",
+            "status": "GOOD"
+        },
+        {
+            "rateType": "TRADABLE",
+            "rateQuoteID": "EZL1VZS1TJCV87DR",
+            "rateCategoryID": "EZLSG",
+            "validFrom": 1498010200811,
+            "validTill": 1498096600811,
+            "buyCurrency": "SGD",
+            "sellCurrency": "AUD",
+            "tenor": 2,
+            "rate": "1.07231",
+            "status": "GOOD"
+        },
+        {
+            "rateType": "TRADABLE",
+            "rateQuoteID": "EZL129M0SI5O7SMD",
+            "rateCategoryID": "EZLSG",
+            "validFrom": 1498010200811,
+            "validTill": 1498096600811,
+            "buyCurrency": "SGD",
+            "sellCurrency": "EUR",
+            "tenor": 2,
+            "rate": "0.73281",
+            "status": "GOOD"
+        },
+        {
+            "rateType": "TRADABLE",
+            "rateQuoteID": "EZL1W9AOHVSV906B",
+            "rateCategoryID": "EZLSG",
+            "validFrom": 1498010200811,
+            "validTill": 1498096600811,
+            "buyCurrency": "GBP",
+            "sellCurrency": "SGD",
+            "tenor": 2,
+            "rate": "1.6471",
+            "status": "GOOD"
+        },
+        {
+            "rateType": "TRADABLE",
+            "rateQuoteID": "EZL19D85XNBL6G51",
+            "rateCategoryID": "EZLSG",
+            "validFrom": 1498010200811,
+            "validTill": 1498096600811,
+            "buyCurrency": "SGD",
+            "sellCurrency": "GBP",
+            "tenor": 2,
+            "rate": "0.64435",
+            "status": "GOOD"
+        },
+        {
+            "rateType": "TRADABLE",
+            "rateQuoteID": "EZL15SOMMXHDXK8C",
+            "rateCategoryID": "EZLSG",
+            "validFrom": 1498010200811,
+            "validTill": 1498096600811,
+            "buyCurrency": "SGD",
+            "sellCurrency": "USD",
+            "tenor": 2,
+            "rate": "0.8168",
+            "status": "GOOD"
+        },
+        {
+            "rateType": "TRADABLE",
+            "rateQuoteID": "EZL1X5UNNJCKCVCN",
+            "rateCategoryID": "EZLSG",
+            "validFrom": 1498010200811,
+            "validTill": 1498096600811,
+            "buyCurrency": "USD",
+            "sellCurrency": "SGD",
+            "tenor": 2,
+            "rate": "1.2992",
+            "status": "GOOD"
+        },
+        {
+            "rateType": "TRADABLE",
+            "rateQuoteID": "EZL1VP458O5FQD22",
+            "rateCategoryID": "EZLSG",
+            "validFrom": 1498010200811,
+            "validTill": 1498096600811,
+            "buyCurrency": "EUR",
+            "sellCurrency": "SGD",
+            "tenor": 2,
+            "rate": "1.4483",
+            "status": "GOOD"
+        },
+        {
+            "rateType": "TRADABLE",
+            "rateQuoteID": "EZL1W9OV33LA7LHV",
+            "rateCategoryID": "EZLSG",
+            "validFrom": 1498010200811,
+            "validTill": 1498096600811,
+            "buyCurrency": "SGD",
+            "sellCurrency": "NZD",
+            "tenor": 2,
+            "rate": "1.12413",
+            "status": "GOOD"
+        }
+    ]
+}

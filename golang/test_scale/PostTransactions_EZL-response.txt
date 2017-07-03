@@ -1,0 +1,21 @@
+{
+	"msgUid" : "e0d63ba997354229a8e458e6b04d1ced",
+	"transactionResponses" : [{
+			"status" : "SUCCESS",
+			"clientID" : "EZL",
+			"clientRequestID" : "EZL-TXN-20170425-001",
+			"scaleTxnID" : "EZL1UJJJN01XMD67",
+			"scaleTxnTime" : 1493087681967,
+			"rateQuoteID" : "EZL19O7MIXGLDNH4",
+			"buyCurrency" : "SGD",
+			"sellCurrency" : "USD",
+			"buyAmount" : "123.45",
+			"sellAmount" : "91.29",
+			"rate" : "0.7395",
+			"tradeDate" : "2017-04-25",
+			"valueDate" : "2017-04-27",
+			"clientProfitsCurrency" : "SGD",
+			"clientProfits" : "2.47"
+		}
+	]
+}

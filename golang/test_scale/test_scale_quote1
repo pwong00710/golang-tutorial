@@ -1,0 +1,61 @@
+package main
+
+import (
+	"fmt"
+
+	"crypto/tls"
+
+	"github.com/go-resty/resty"
+)
+
+func main() {
+	// GET request
+
+	headers := map[string]string{
+		"SCALE_TS":     "1498198576485",
+		"SCALE_TX_ID":  "e0d63ba997354229a8e458e6b04d1ced",
+		"SCALE_HMAC":   "QC8L4mJPbPbHV+6ZgXAk+nTAU51dUWwGUgFfl0+KJmw=",
+		"Content-Type": "application/json",
+	}
+
+	cert, err := tls.LoadX509KeyPair("./GEU00429-1364209.pem", "./GEU00429-1364209.key")
+
+	resty.SetCertificates(cert)
+	resty.SetTLSClientConfig(&tls.Config{
+		InsecureSkipVerify: true,
+		MinVersion:         tls.VersionTLS10,
+		MaxVersion:         tls.VersionTLS10,
+	})
+
+	resp, err := resty.R().
+		SetHeaders(headers).
+		Get("https://www.demo.fx-scale.com/scale/v1/quotes-service/get-quotes/EZL/*")
+
+	// explore response object
+	fmt.Printf("\nError: %v", err)
+	fmt.Printf("\nResponse Status Code: %v", resp.StatusCode())
+	fmt.Printf("\nResponse Status: %v", resp.Status())
+	fmt.Printf("\nResponse Time: %v", resp.Time())
+	fmt.Printf("\nResponse Recevied At: %v", resp.ReceivedAt())
+	fmt.Printf("\nResponse Body: %v", resp) // or resp.String() or string(resp.Body())
+	// more...
+
+	/* Output
+	   Error: <nil>
+	   Response Status Code: 200
+	   Response Status: 200 OK
+	   Response Time: 644.290186ms
+	   Response Recevied At: 2015-09-15 12:05:28.922780103 -0700 PDT
+	   Response Body: {
+	     "args": {},
+	     "headers": {
+	       "Accept-Encoding": "gzip",
+	       "Host": "httpbin.org",
+	       "User-Agent": "go-resty v0.1 - https://github.com/go-resty/resty"
+	     },
+	     "origin": "0.0.0.0",
+	     "url": "http://httpbin.org/get"
+	   }
+	*/
+
+}
