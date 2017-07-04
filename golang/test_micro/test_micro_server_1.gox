@@ -1,0 +1,86 @@
+package main
+
+import (
+	"log"
+	"time"
+
+	"github.com/micro/go-micro"
+	"github.com/micro/go-micro/cmd"
+	"github.com/micro/go-nats"
+
+	config "github.com/yougroupteam/you-config"
+	pbforex "github.com/yougroupteam/you-pb/go/pb/services/you_forex_cache"
+	"github.com/yougroupteam/you-pb/go/pb/money"
+
+	"golang.org/x/net/context"
+)
+
+type Handler struct {
+	cnf *config.Config
+}
+
+//	GetDetailedRate(context.Context, *GetDetailedRateRequest, *Rate) error
+//	RetrieveMultipleRates(context.Context, *RetrieveMultipleRatesRequest, *MultiRate) error
+
+func (h *Handler) GetDetailedRate(ctx context.Context, in *pbforex.GetDetailedRateRequest, out *pbforex.Rate) error {
+	log.Printf("request: %v\n", *in)
+	rate := new(pbforex.Rate)
+	rate.Rate = new(pbmoney.ExchangeRate)
+	var err error
+	rate.Rate.From, err = pbmoney.CurrencyCodeSimpleValueOf("SGD")
+	if err != nil {
+		log.Fatal(err)
+	}
+	rate.Rate.To, err = pbmoney.CurrencyCodeSimpleValueOf("USD")
+	if err != nil {
+		log.Fatal(err)
+	}
+	rate.Rate.ValueMicros = int64(1.2992 * 1000000.0)
+	out = rate
+	log.Printf("response: %v\n", *out)
+
+	return nil
+}
+
+func (h *Handler) RetrieveMultipleRates(ctx context.Context, in *pbforex.RetrieveMultipleRatesRequest, out *pbforex.MultiRate) error {
+	log.Printf("request: %v\n", *in)
+	multirate := new(pbforex.MultiRate)
+	multirate.Rates = []*pbmoney.ExchangeRate{}
+
+	rate := new(pbmoney.ExchangeRate)
+	var err error
+	rate.From, err = pbmoney.CurrencyCodeSimpleValueOf("SGD")
+	if err != nil {
+		log.Fatal(err)
+	}
+	rate.To, err = pbmoney.CurrencyCodeSimpleValueOf("USD")
+	if err != nil {
+		log.Fatal(err)
+	}
+	rate.ValueMicros = int64(1.2992 * 1000000.0)
+	multirate.Rates = append(multirate.Rates, rate)
+	out = multirate
+	log.Printf("response: %v\n", *out)
+
+	return nil
+}
+
+func main() {
+	// Parse our command line options
+	cmd.Init()
+	cnf := config.NewConfig(nil, true, true)
+
+	s := nats.NewService(
+		micro.Name("go.micro.srv.you-forex-cache"),
+		micro.RegisterTTL(time.Second*30),
+		micro.RegisterInterval(time.Second*10),
+	)
+	s.Init()
+
+	handler := Handler{cnf: cnf}
+	pbforex.RegisterFxQuoteHandler(s.Server(), &handler)
+
+	if err := s.Run(); err != nil {
+		log.Fatal(err)
+	}
+}

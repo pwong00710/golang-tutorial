@@ -358,3 +358,5 @@ Or, if you don't want/need a background service you can just run:
 ./proto/pb/orders/topup.proto
 
 protoc -I$GOPATH/src --go_out=plugins=micro:$GOPATH/src $GOPATH/src/github.com/micro/examples/service/proto/greeter.proto
+
+--registry=nats --registry_address=nats-streaming-server:4222 --broker=nats --broker_address=nats-streaming-server:4222 --transport=nats --transport_address=nats-streaming-server:4222

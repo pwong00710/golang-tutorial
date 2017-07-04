@@ -1,0 +1,1 @@
+go run test_micro_server_1.go --registry=nats --registry_address=nats-streaming-server:4222 --broker=nats --broker_address=nats-streaming-server:4222 --transport=nats --transport_address=nats-streaming-server:4222
